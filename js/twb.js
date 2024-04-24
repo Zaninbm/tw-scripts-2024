@@ -29,7 +29,8 @@ const PRESELECTED_KEYS = [
     variableNameKey('discordWebHookUrl'),
     variableNameKey('discordUnderAttackWebHookUrl'),
     variableNameKey('reloadIntervalInSecs'),
-    variableNameKey('waitForOrderBuildings')
+    variableNameKey('waitForOrderBuildings'),
+    variableNameKey('botEnabled'),
     //variableNameKey('fullStorageThresholdPercent')
 ];
 PRESELECTED_KEYS.forEach(value => console.log(value + ': ' + localStorage.getItem(value)))
@@ -40,7 +41,8 @@ var discordWebHookUrl = getStringVariableFromLocalStorage('discordWebHookUrl', '
 var discordUnderAttackWebHookUrl = getStringVariableFromLocalStorage('discordUnderAttackWebHookUrl', 'https://discord.com/api/webhooks/1232598569949593700/4mu-_o5BGG-IhVFv-_YHgoEgtntBlVjd6Zz00iJuyOVbn4QmNkOI3TxWV1xuWwsrVOBX');
 var reloadIntervalInSecs = getIntVariableFromLocalStorage('reloadIntervalInSecs', 120);
 var waitForOrderBuildings = getBoolVariableFromLocalStorage('waitForOrderBuildings', false);
-var fullStorageThresholdPercent = getIntVariableFromLocalStorage('fullStorageThresholdPercent', 80)
+var fullStorageThresholdPercent = getIntVariableFromLocalStorage('fullStorageThresholdPercent', 80);
+var botEnabled = getBoolVariableFromLocalStorage('botEnabled', true);
 
 // Values are going to be set later
 var captchaDetected = false;
@@ -91,6 +93,10 @@ function runBot() {
     setInterval(resources, 1900);
     finishQuest();
     setInterval(claimRewards, 2000);
+
+    if (!botEnabled) {
+        return;
+    }
 
     /*        if (game_data.player.name.includes('Saddled4620')) {
                 return;
