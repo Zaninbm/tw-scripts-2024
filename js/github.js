@@ -1,4 +1,27 @@
-// version 1.0
+// ==UserScript==
+// @name         TW bot 7
+// @namespace    http://tampermonkey.net/
+// @version      2024-04-21
+// @description  tribal wars bot
+// @author       LZ
+// @match        https://greasyfork.org/en
+// @match        *://*.divokekmeny.cz/*
+// @grant        none
+// @license      MIT
+// ==/UserScript==
+
+let reloadCountdown = 10 * 60; // 10 minutes
+let reloadCountdownInterval = setInterval(() => {
+    //console.log(reloadIntervalInSecs + ' seconds until reload...');
+    reloadCountdown--;
+    console.log('Reloading page in ' + reloadCountdown + ' sec.');
+    if (reloadCountdown < 0) {
+        clearInterval(reloadCountdownInterval);
+        console.log('Reloading page...');
+        window.location.reload();
+    }
+}, 1000);
+
 async function loadAndExecuteScript(apiUrl) {
     try {
         // Fetch the file content from GitHub API
